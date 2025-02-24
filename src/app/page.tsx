@@ -1,44 +1,55 @@
-// import { Navbar } from "@/components/navbar"
+// // import { Navbar } from "@/components/navbar"
+// import { Canvas } from "@react-three/fiber"
+// import Web3Ecosystem from "../components/Web3Ecosystem"
+
+// export default function Home() {
+//     return (
+//         <div className="w-full h-screen">
+//             <Canvas>
+//                 <Web3Ecosystem />
+//             </Canvas>
+//         </div>
+//     )
+// }
+
+import { Canvas } from "@react-three/fiber"
+import { OrbitControls, Text, Float, Environment } from "@react-three/drei"
+import { Suspense } from "react"
+import Web3Ecosystem from "../components/Web3Ecosystem"
+
 export default function Home() {
-    return (
-        <main className="min-h-screen bg-black text-white">
-            {/* <Navbar /> */}
-            {/* Hero Section */}
-            <div className="relative overflow-hidden">
-                {/* Gradient decorations */}
-                <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-teal-500/20 blur-[120px] rounded-full transform -translate-x-1/2 -translate-y-1/2" />
-                <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-r from-teal-500/20 via-blue-500/20 to-purple-500/20 blur-[120px] rounded-full transform translate-x-1/2 translate-y-1/2" />
+  return (
+    <div className="w-full h-screen relative">
+      {/* Futuristic background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center z-0"
+        style={{
+          backgroundImage: "url('/futuristic-background.jpg')",
+        }}
+      />
 
-                {/* Content */}
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
-                    <div className="text-center">
-                        <h1 className="text-4xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-blue-500 to-teal-500 text-transparent bg-clip-text">
-                            Powerful for developers.
-                            <br />
-                            Fast for everyone.
-                        </h1>
-                        <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
-                            Build on the world's first computational storage network. AO brings unlimited compute to Arweave's
-                            permanent storage.
-                        </p>
-                    </div>
-                </div>
-            </div>
+      {/* Canvas with increased z-index to appear above the background */}
+      <div className="relative z-10 w-full h-full">
+        <Canvas camera={{ position: [0, 0, 10], fov: 50 }}>
+          <Suspense fallback={null}>
+            <Environment preset="city" />
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} />
 
-            {/* Partners Section */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                <p className="text-center text-sm text-blue-500 tracking-wider mb-12">
-                    POWERING TOOLS AND INTEGRATIONS FROM COMPANIES ALL AROUND THE WORLD
-                </p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-70">
-                    {/* Replace with actual partner logos */}
-                    {Array.from({ length: 8 }).map((_, i) => (
-                        <div key={i} className="h-12 w-32 bg-white/10 rounded" />
-                    ))}
-                </div>
-            </div>
-        </main >
+            <Float floatIntensity={2} rotationIntensity={0.5}>
+              {/* <Text font="/fonts/Inter-Bold.ttf" fontSize={1.5} position={[0, 3, 0]} color="#ffffff"> */}
+                Welcome to Web3 Ecosystem
+              {/* </Text> */}
+            </Float>
 
+            <Web3Ecosystem />
 
-    )
+            <OrbitControls enableZoom={false} />
+          </Suspense>
+        </Canvas>
+      </div>
+
+    </div>
+  )
 }
+
